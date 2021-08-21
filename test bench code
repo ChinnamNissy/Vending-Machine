@@ -1,0 +1,77 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 08/20/2021 10:11:38 PM
+// Design Name: 
+// Module Name: vending_machine_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module vending_machine_tb;
+  wire bottle;
+  reg [1:0] money;
+  reg clk,rst;
+  
+  parameter [1:0]zero=2'b00;
+  parameter [1:0]five=2'b01;
+  parameter [1:0]ten=2'b10;
+  parameter [1:0]twenty=2'b11;
+  
+  vending_machine test(bottle,clk,money,rst);
+  initial
+  begin
+  $monitor($time,"bottle=%b, clk=%b, money=%b, rst=%b",bottle, clk,money,rst);
+  
+   rst=1;
+   #2 rst=1'b0;
+    money=five;
+   #2 money=ten;
+   #2 money=ten;
+   #2 money=zero;
+   #2 money=twenty;
+   #2 money=five;
+   #2 money=zero;
+   #2 money=twenty;
+   #2 money=ten;
+   #2 money=ten;
+   #2 money=zero;
+   #2 money=five;
+   #2 rst=1;
+    money=five;
+   #5 rst=0;
+   #2 money=five;
+   #2 money=twenty;
+   #2 money=zero;
+   #2 money=five;
+   #2 money=ten;
+   #2 money=five;
+   #2 money=five;
+   #2 money=zero;
+   #2 money=ten;
+   #2 money=twenty;
+   #2 money=five;
+   #2 money=ten;
+   #2 money=five;
+   #2 money=five;
+   #2 $finish;
+  end
+
+  initial
+  begin
+  clk=1'b0;
+  forever #1 clk=~clk;
+  end 
+endmodule
